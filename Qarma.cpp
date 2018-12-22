@@ -63,7 +63,7 @@
 #include <QtDebug>
 
 #ifdef Q_OS_UNIX
-#include <signal.h>
+#include <csignal>
 #include <unistd.h>
 #endif
 
