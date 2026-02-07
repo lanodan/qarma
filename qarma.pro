@@ -1,9 +1,6 @@
 HEADERS = Qarma.h
 SOURCES = Qarma.cpp
 QT      += gui widgets
-lessThan(QT_MAJOR_VERSION, 6){
-  unix:!macx:QT += x11extras
-}
 TARGET  = qarma
 
 !DISABLE_DBUS {
@@ -11,8 +8,14 @@ TARGET  = qarma
 	QT += dbus
 }
 
-unix:!macx:LIBS    += -lX11
-unix:!macx:DEFINES += WS_X11
+!DISABLE_X11 {
+	unix:!macx:LIBS    += -lX11
+	unix:!macx:DEFINES += WS_X11
+
+	lessThan(QT_MAJOR_VERSION, 6){
+		unix:!macx:QT += x11extras
+	}
+}
 
 # override: qmake PREFIX=/some/where/else
 isEmpty(PREFIX) {
